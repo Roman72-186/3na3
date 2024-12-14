@@ -8,9 +8,9 @@ import os
 
 # Загрузка переменных из .env
 load_dotenv()
-
-TOKEN = os.getenv("TOKEN")
-
+TOKEN = os.getenv("BOT_TOKEN")
+if not TOKEN:
+    raise ValueError("No BOT_TOKEN provided in .env file!")
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
@@ -38,7 +38,6 @@ def game_keyboard(field):
         ]
         keyboard.append(row)
     return InlineKeyboardMarkup(inline_keyboard=keyboard)
-
 
 # Обработчики
 @dp.message(Command("start"))
